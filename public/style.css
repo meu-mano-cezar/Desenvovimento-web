@@ -1,3 +1,7 @@
-simsalabim {
-    
+body {
+    background-color: rgb(152, 177, 152);
+}
+
+main {
+    display: flex
 }
