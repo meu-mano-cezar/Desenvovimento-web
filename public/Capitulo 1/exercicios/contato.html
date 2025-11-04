@@ -6,6 +6,43 @@
     <title>Document</title>
 </head>
 <body>
-    udlth
+    <header>
+        <div class="logo">StartEdu</div>
+        <nav>
+            <ul class="menu">
+                <li><a href="index.html">Início</a></li>
+                <li><a href="produtos.html">Cursos</a></li>
+                <li><a href="contato.html">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-contato">
+        <h1>Fale Conosco</h1>
+        <form class="form-contato">
+            <label for="nome">Nome Completo:</label>
+            <input type="text" id="nome" name="nome" required>
+
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="assunto">Assunto:</label>
+            <input type="text" id="assunto" name="assunto" required>
+
+            <label for="mensagem">Mensagem:</label>
+            <textarea id="mensagem" name="mensagem" rows="5" required></textarea>
+
+            <button type="submit" class="btn">Enviar Mensagem</button>
+        </form>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Nua Joias. Todos os direitos reservados.</p>
+        <div class="social">
+            <img src="/assens/facebook.jpg" alt="Facebook">
+            <img src="/assens/instagram.jpg" alt="Instagram">
+            <img src="/assens/twitter.png" alt="Twitter">
+        </div>
+    </footer>
 </body>
 </html>
