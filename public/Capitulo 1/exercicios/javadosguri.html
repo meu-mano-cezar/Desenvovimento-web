@@ -3,51 +3,212 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Javascript dos guri</title>
-    <link rel="stylesheet" href="./style.css">
+    <title>Javascript dos Guri - Melhorado</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1 id="título">EXEMPO DE DOM DOS GURI</h1>
+    <div class="container-principal">
+        <h1 id="título">🚀 EXEMPLOS DE DOM DOS GURI</h1>
+        <p style="text-align: center; color: #666; margin-bottom: 30px;">Explore os poderes do JavaScript!</p>
 
-    <div id="container">
-        <p class="descricao">Texto dentro do DIV principal dos guri</p>
-        <p class="descricao">Outro parágrafo para podermos </p>
+        <div class="secao">
+            <h2>📝 Manipulação de Texto e Elementos</h2>
+            <div id="container">
+                <p class="descricao">Texto dentro do DIV principal dos guri</p>
+                <p class="descricao">Outro parágrafo para experimentar</p>
+            </div>
+            
+            <button id="btnTrocarTexto">🔄 Trocar Título</button>
+            <button id="btnDestaque">✨ Destacar Descrição</button>
+            <button id="btnQuery">🎯 Usar querySelector</button>
+            <button id="btnQueryAll">🎨 Colorir Parágrafos</button>
+            <button id="btnCriar">➕ Adicionar Parágrafo</button>
+        </div>
+
+        <div class="secao">
+            <h2>🔢 Contador</h2>
+            <p style="text-align: center;">Valor atual: <span id="valor">0</span></p>
+            <div style="text-align: center;">
+                <button id="btnMais">➕ +1</button>
+                <button id="btnMenos">➖ –1</button>
+            </div>
+        </div>
+
+        <div class="secao">
+            <h2>👁️ Visibilidade</h2>
+            <div id="box" class="box visible">BOX</div>
+            <button id="toggleBtn">🔲 Alternar Visibilidade</button>
+        </div>
+
+        <div class="secao">
+            <h2>🌓 Tema</h2>
+            <button id="btnDark">🌙 Alternar Modo Dark</button>
+        </div>
+
+        <div class="secao">
+            <h2>📋 Lista de Nomes</h2>
+            <input type="text" id="nomeInput" placeholder="Digite um nome">
+            <button id="btnAdicionar">➕ Adicionar</button>
+            <button id="btnLimpar">🗑️ Limpar Lista</button>
+            <ul id="listaNomes"></ul>
+        </div>
+
+        <div class="secao">
+            <h2>🎯 Remoção Seletiva de Elementos</h2>
+            <p style="color: #666; margin-bottom: 15px;">Clique em "Remover" para excluir apenas aquele item específico</p>
+            <ul id="listaRemocao">
+                <li>
+                    <span>Item 1 - Exemplo de lista</span>
+                    <button class="btn-remover">🗑️ Remover</button>
+                </li>
+                <li>
+                    <span>Item 2 - Clique no botão ao lado</span>
+                    <button class="btn-remover">🗑️ Remover</button>
+                </li>
+                <li>
+                    <span>Item 3 - Cada botão remove só seu item</span>
+                    <button class="btn-remover">🗑️ Remover</button>
+                </li>
+                <li>
+                    <span>Item 4 - Teste a funcionalidade!</span>
+                    <button class="btn-remover">🗑️ Remover</button>
+                </li>
+            </ul>
+        </div>
+
+        <div class="secao">
+            <h2>🔍 Filtro de Busca em Lista</h2>
+            <input type="text" id="buscaInput" placeholder="Digite para filtrar...">
+            <ul id="listaBusca">
+                <li class="item-busca"><span>João Silva</span></li>
+                <li class="item-busca"><span>Maria Santos</span></li>
+                <li class="item-busca"><span>Pedro Oliveira</span></li>
+                <li class="item-busca"><span>Ana Costa</span></li>
+                <li class="item-busca"><span>Carlos Ferreira</span></li>
+                <li class="item-busca"><span>Juliana Almeida</span></li>
+                <li class="item-busca"><span>Roberto Lima</span></li>
+                <li class="item-busca"><span>Fernanda Rodrigues</span></li>
+            </ul>
+        </div>
+
+        <div class="secao">
+            <h2>🎓 Mini Quiz - Teste seus Conhecimentos</h2>
+            <p style="color: #666; margin-bottom: 20px;">Responda as 3 perguntas e clique em Finalizar para ver sua pontuação!</p>
+
+            <div class="quiz-pergunta">
+                <h3>1️⃣ Qual método é usado para selecionar um elemento por ID?</h3>
+                <label class="quiz-opcao">
+                    <input type="radio" name="q1" value="errado">
+                    querySelector()
+                </label>
+                <label class="quiz-opcao">
+                    <input type="radio" name="q1" value="certo">
+                    getElementById()
+                </label>
+                <label class="quiz-opcao">
+                    <input type="radio" name="q1" value="errado">
+                    getElementsByClassName()
+                </label>
+            </div>
+
+            <div class="quiz-pergunta">
+                <h3>2️⃣ O que o método addEventListener() faz?</h3>
+                <label class="quiz-opcao">
+                    <input type="radio" name="q2" value="errado">
+                    Remove um elemento do DOM
+                </label>
+                <label class="quiz-opcao">
+                    <input type="radio" name="q2" value="certo">
+                    Adiciona um ouvinte de eventos a um elemento
+                </label>
+                <label class="quiz-opcao">
+                    <input type="radio" name="q2" value="errado">
+                    Cria um novo elemento HTML
+                </label>
+            </div>
+
+            <div class="quiz-pergunta">
+                <h3>3️⃣ Qual propriedade altera o conteúdo de texto de um elemento?</h3>
+                <label class="quiz-opcao">
+                    <input type="radio" name="q3" value="errado">
+                    innerHTML
+                </label>
+                <label class="quiz-opcao">
+                    <input type="radio" name="q3" value="errado">
+                    value
+                </label>
+                <label class="quiz-opcao">
+                    <input type="radio" name="q3" value="certo">
+                    textContent
+                </label>
+            </div>
+
+            <button id="btnFinalizarQuiz" style="width: 100%; font-size: 1.2em; margin-top: 15px;">
+                ✅ Finalizar Quiz
+            </button>
+
+            <p id="resultadoQuiz"></p>
+        </div>
+
+        <div class="secao">
+            <h2>⚔️ Sistema de Evolução de Personagem</h2>
+            <p style="text-align: center; font-size: 1.2em;">
+                Pontos restantes: <span id="pontosRestantes">10</span>
+            </p>
+
+            <div class="atributo">
+                <h3>💪 Força</h3>
+                <div class="atributo-controles">
+                    <button class="menos" data-atributo="forca">–</button>
+                    <span id="forcaValor">0</span>
+                    <button class="mais" data-atributo="forca">+</button>
+                </div>
+            </div>
+
+            <div class="atributo">
+                <h3>🏃 Agilidade</h3>
+                <div class="atributo-controles">
+                    <button class="menos" data-atributo="agi">–</button>
+                    <span id="agiValor">0</span>
+                    <button class="mais" data-atributo="agi">+</button>
+                </div>
+            </div>
+
+            <div class="atributo">
+                <h3>🧠 Intelecto</h3>
+                <div class="atributo-controles">
+                    <button class="menos" data-atributo="int">–</button>
+                    <span id="intValor">0</span>
+                    <button class="mais" data-atributo="int">+</button>
+                </div>
+            </div>
+
+            <div class="atributo">
+                <h3>✨ Carisma</h3>
+                <div class="atributo-controles">
+                    <button class="menos" data-atributo="carisma">–</button>
+                    <span id="carismaValor">0</span>
+                    <button class="mais" data-atributo="carisma">+</button>
+                </div>
+            </div>
+
+            <div class="atributo">
+                <h3>🛡️ Defesa</h3>
+                <div class="atributo-controles">
+                    <button class="menos" data-atributo="defesa">–</button>
+                    <span id="defesaValor">0</span>
+                    <button class="mais" data-atributo="defesa">+</button>
+                </div>
+            </div>
+
+            <button id="confirmar" style="width: 100%; font-size: 1.2em; margin-top: 20px;">
+                ✅ Confirmar Distribuição
+            </button>
+
+            <p id="resultadoAtributos"></p>
+        </div>
     </div>
-    
-    <button id="btnTrocarTexto">Trocar texto do título</button>
-    <button id="btnDestaque">Destacar decrição</button>
-    <button id="btnQuery">Usar querySelector</button>
-    <button id="btnQueryAll">Colorir todos os paragrafos</button>
-    <button id="btnCriar">Adicionar um novo paragrafo</button>
-    <hr>
 
-    <h2>Parágrafos do guri!!!</h2>
-
-    <p id="p1">Parágrafo 1: texto original.</p>
-    <p id="p2">Parágrafo 2: texto original.</p>
-    <p id="p3">Parágrafo 3: texto original.</p>
-
-    <h3>Botões dos guri!!!</h3>
-
-    <button onclick="alterarP1()">Alterar Parágrafo 1</button>
-    <button onclick="alterarP2()">Alterar Parágrafo 2</button>
-    <button onclick="alterarP3()">Alterar Parágrafo 3</button>
-
-    <div id="quadrado" class="box"></div>
-    <button id="toggleBtn">Mostrar / Esconder</button>
-
-    <hr>
-   
-    <h2>Valor atual dos guri!!!: <span id="valor">0</span></h2>
-
-    <button id="mais">+1</button>
-    <button id="menos">-1</button>
-    <hr>
-
-
-
-    
-    <script src="./script.js"></script>
-
+    <script src="script.js"></script>
 </body>
 </html>
