@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prática DOM JavaScript - Completa</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container-principal">
+
+        <a href="javadosguri.html">Voltar</a>
+        <a href="index.html">HOME</a>
+
+        <h1>🚀 Prática Completa de DOM JavaScript</h1>
+
+        <!-- Botão Dark Mode -->
+        <div class="secao">
+            <h2>🌙 Modo Escuro</h2>
+            <button id="btnDark">Alternar Modo Escuro</button>
+        </div>
+
+        <!-- 1. Lista de Tarefas com Persistência -->
+        <div class="secao">
+            <h2>✅ Lista de Tarefas (com localStorage)</h2>
+            <input type="text" id="tarefaInput" placeholder="Digite uma nova tarefa...">
+            <button id="btnAdicionarTarefa">Adicionar Tarefa</button>
+            <button id="btnLimparTarefas">Limpar Todas</button>
+            <ul id="listaTarefas"></ul>
+        </div>
+
+        <!-- 2. Contador com Play/Pause/Reset -->
+        <div class="secao">
+            <h2>⏱️ Contador de Tempo</h2>
+            <div id="display">0</div>
+            <div class="buttons">
+                <button id="startPauseBtn">Start</button>
+                <button id="resetBtn">Reset</button>
+            </div>
+        </div>
+
+        <!-- 3. Sistema de Cadastro -->
+        <div class="secao">
+            <h2>📋 Cadastro de Alunos</h2>
+            <div class="form-cadastro">
+                <input type="text" id="nomeAluno" placeholder="Nome do aluno">
+                <input type="number" id="idadeAluno" placeholder="Idade" min="1">
+                <button id="btnCadastrar">Cadastrar Aluno</button>
+            </div>
+            <h3>Lista de Alunos:</h3>
+            <div id="listaAlunos"></div>
+        </div>
+
+        <!-- 4. Galeria com troca automática -->
+        <div class="secao">
+            <h2>🖼️ Galeria de Imagens</h2>
+            <div class="galeria-container">
+                <img id="imagemPrincipal" class="galeria-principal" src="https://picsum.photos/600/400?random=1" alt="Imagem Principal">
+                <div class="buttons">
+                    <button id="btnPauseGaleria">Pausar Auto-Troca</button>
+                </div>
+                <div class="thumbnails">
+                    <img class="thumbnail ativa" src="https://picsum.photos/600/400?random=1" data-index="0" alt="Thumb 1">
+                    <img class="thumbnail" src="https://picsum.photos/600/400?random=2" data-index="1" alt="Thumb 2">
+                    <img class="thumbnail" src="https://picsum.photos/600/400?random=3" data-index="2" alt="Thumb 3">
+                    <img class="thumbnail" src="https://picsum.photos/600/400?random=4" data-index="3" alt="Thumb 4">
+                    <img class="thumbnail" src="https://picsum.photos/600/400?random=5" data-index="4" alt="Thumb 5">
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. Quiz com Pontuação -->
+        <div class="secao">
+            <h2>🎯 Quiz de Conhecimentos</h2>
+            <div id="quizContainer"></div>
+            <button id="btnFinalizarQuiz">Finalizar Quiz</button>
+            <div id="resultadoQuiz" class="resultado"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

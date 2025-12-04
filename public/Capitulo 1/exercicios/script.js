@@ -1,256 +1,312 @@
-// ===== TROCAR TEXTO DO TÍTULO =====
-const título = document.getElementById("título");
-const btnTrocarTexto = document.getElementById("btnTrocarTexto");
-
-btnTrocarTexto.addEventListener("click", function () {
-    título.textContent = "✨ O TÍTULO FOI ALTERADO VIA DOM ✨";
-});
-
-
-// ===== DESTACAR DESCRIÇÃO =====
-const descricao = document.getElementsByClassName("descricao");
-const btnDestaque = document.getElementById("btnDestaque");
-
-btnDestaque.addEventListener("click", function () {
-    for (let item of descricao) {
-        item.classList.toggle("highlight");
-    }
-});
-
-
-// ===== QUERYSELECTOR =====
-const btnQuery = document.getElementById("btnQuery");
-
-btnQuery.addEventListener("click", function () {
-    const primeiroParagrafo = document.querySelector("#container p");
-    primeiroParagrafo.style.color = "#e74c3c";
-    primeiroParagrafo.style.fontWeight = "bold";
-});
-
-
-// ===== QUERYSELECTORALL =====
-const btnQueryAll = document.getElementById("btnQueryAll");
-
-btnQueryAll.addEventListener("click", function () {
-    const paragrafo = document.querySelectorAll("#container p");
-
-    paragrafo.forEach(p => {
-        p.style.border = "2px solid #667eea";
-        p.style.margin = "8px 0";
-        p.style.padding = "10px";
-    });
-});
-
-
-// ===== CRIAR PARÁGRAFO =====
-const btnCriar = document.getElementById("btnCriar");
-
-btnCriar.addEventListener("click", function () {
-    const novo = document.createElement("p");
-    novo.textContent = "🎉 Eu fui criado dinamicamente!";
-    novo.classList.add("descricao");
-    document.getElementById("container").appendChild(novo);
-});
-
-
-// ===== TOGGLE VISIBILIDADE =====
-const box = document.getElementById('box');
-const btn = document.getElementById('toggleBtn');
-
-btn.addEventListener('click', () => {
-    box.classList.toggle('hidden');
-    box.classList.toggle('visible');
-});
-
-
-// ===== CONTADOR =====
-const valorEl = document.getElementById('valor');
-const btnMais = document.getElementById('btnMais');
-const btnMenos = document.getElementById('btnMenos');
-
-let valor = 0;
-
-btnMais.addEventListener('click', () => {
-    valor++;
-    valorEl.textContent = valor;
-});
-
-btnMenos.addEventListener('click', () => {
-    valor--;
-    valorEl.textContent = valor;
-});
-
-
-// ===== LISTA DE NOMES =====
-const input = document.getElementById('nomeInput');
-const btnAdicionar = document.getElementById('btnAdicionar');
-const btnLimpar = document.getElementById('btnLimpar');
-const lista = document.getElementById('listaNomes');
-
-btnAdicionar.addEventListener('click', () => {
-    const nome = input.value.trim();
-
-    if (nome !== "") {
-        const li = document.createElement('li');
-        li.textContent = nome;
-        lista.appendChild(li);
-        input.value = "";
-    }
-});
-
-btnLimpar.addEventListener('click', () => {
-    lista.innerHTML = "";
-});
-
-
 // ===== MODO DARK =====
 const btnDark = document.getElementById('btnDark');
-
 btnDark.addEventListener('click', () => {
     document.body.classList.toggle('dark-mode');
 });
 
 
-// ===== REMOÇÃO SELETIVA =====
-const listaRemocao = document.getElementById('listaRemocao');
+// ===== 1. LISTA DE TAREFAS COM PERSISTÊNCIA =====
+const tarefaInput = document.getElementById('tarefaInput');
+const btnAdicionarTarefa = document.getElementById('btnAdicionarTarefa');
+const btnLimparTarefas = document.getElementById('btnLimparTarefas');
+const listaTarefas = document.getElementById('listaTarefas');
 
-listaRemocao.addEventListener('click', (e) => {
-    if (e.target.classList.contains('btn-remover')) {
-        const item = e.target.parentNode;
-        item.style.opacity = '0';
-        item.style.transform = 'translateX(-100%)';
+let tarefas = JSON.parse(localStorage.getItem('tarefas')) || [];
+
+function salvarTarefas() {
+    localStorage.setItem('tarefas', JSON.stringify(tarefas));
+}
+
+function renderizarTarefas() {
+    listaTarefas.innerHTML = '';
+    tarefas.forEach((tarefa, index) => {
+        const li = document.createElement('li');
+        li.className = tarefa.completa ? 'tarefa-completa' : '';
         
-        setTimeout(() => {
-            item.remove();
-        }, 300);
-    }
-});
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.className = 'checkbox-tarefa';
+        checkbox.checked = tarefa.completa;
+        checkbox.addEventListener('change', () => {
+            tarefa.completa = !tarefa.completa;
+            salvarTarefas();
+            renderizarTarefas();
+        });
 
+        const span = document.createElement('span');
+        span.textContent = tarefa.texto;
 
-// ===== FILTRO DE BUSCA =====
-const buscaInput = document.getElementById('buscaInput');
-const itensBusca = document.querySelectorAll('.item-busca');
+        const btnRemover = document.createElement('button');
+        btnRemover.textContent = 'Remover';
+        btnRemover.className = 'btn-remover';
+        btnRemover.addEventListener('click', () => {
+            tarefas.splice(index, 1);
+            salvarTarefas();
+            renderizarTarefas();
+        });
 
-buscaInput.addEventListener('input', () => {
-    const termoBusca = buscaInput.value.toLowerCase();
-
-    itensBusca.forEach(item => {
-        const texto = item.textContent.toLowerCase();
-        
-        if (texto.includes(termoBusca)) {
-            item.style.display = 'flex';
-        } else {
-            item.style.display = 'none';
-        }
+        li.appendChild(checkbox);
+        li.appendChild(span);
+        li.appendChild(btnRemover);
+        listaTarefas.appendChild(li);
     });
-});
+}
 
-
-// ===== MINI QUIZ =====
-const btnFinalizarQuiz = document.getElementById('btnFinalizarQuiz');
-const resultadoQuiz = document.getElementById('resultadoQuiz');
-
-btnFinalizarQuiz.addEventListener('click', () => {
-    const respostasCorretas = document.querySelectorAll('input[value="certo"]:checked');
-    const totalPerguntas = 3;
-    const acertos = respostasCorretas.length;
-
-    resultadoQuiz.innerHTML = "";
-
-    if (acertos === totalPerguntas) {
-        resultadoQuiz.style.color = "green";
-        resultadoQuiz.style.background = "#e6ffe6";
-        resultadoQuiz.innerHTML = `🎉 <strong>Perfeito!</strong> Você acertou todas as ${totalPerguntas} perguntas! 🏆`;
-    } else if (acertos >= 2) {
-        resultadoQuiz.style.color = "#f39c12";
-        resultadoQuiz.style.background = "#fff9e6";
-        resultadoQuiz.innerHTML = `👍 <strong>Muito bem!</strong> Você acertou ${acertos} de ${totalPerguntas} perguntas!`;
-    } else if (acertos === 1) {
-        resultadoQuiz.style.color = "#e67e22";
-        resultadoQuiz.style.background = "#ffe6d9";
-        resultadoQuiz.innerHTML = `📚 Você acertou ${acertos} de ${totalPerguntas} perguntas. Continue estudando!`;
-    } else {
-        resultadoQuiz.style.color = "red";
-        resultadoQuiz.style.background = "#ffe6e6";
-        resultadoQuiz.innerHTML = `❌ Você não acertou nenhuma pergunta. Revise o conteúdo e tente novamente!`;
+btnAdicionarTarefa.addEventListener('click', () => {
+    const texto = tarefaInput.value.trim();
+    if (texto !== '') {
+        tarefas.push({ texto, completa: false });
+        salvarTarefas();
+        renderizarTarefas();
+        tarefaInput.value = '';
     }
 });
 
+tarefaInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        btnAdicionarTarefa.click();
+    }
+});
 
-// ===== SISTEMA DE ATRIBUTOS =====
-let pontos = 10;
-const pontosRestantesEl = document.getElementById("pontosRestantes");
-const resultadoAtributos = document.getElementById("resultadoAtributos");
+btnLimparTarefas.addEventListener('click', () => {
+    if (confirm('Deseja realmente limpar todas as tarefas?')) {
+        tarefas = [];
+        salvarTarefas();
+        renderizarTarefas();
+    }
+});
 
-let atributos = {
-    forca: 0,
-    agi: 0,
-    int: 0,
-    carisma: 0,
-    defesa: 0
-};
+// Carregar tarefas ao iniciar
+renderizarTarefas();
 
-const btnMaisAttr = document.querySelectorAll(".mais");
-const btnMenosAttr = document.querySelectorAll(".menos");
 
-function atualizarTela() {
-    document.getElementById("forcaValor").textContent = atributos.forca;
-    document.getElementById("agiValor").textContent = atributos.agi;
-    document.getElementById("intValor").textContent = atributos.int;
-    document.getElementById("carismaValor").textContent = atributos.carisma;
-    document.getElementById("defesaValor").textContent = atributos.defesa;
+// ===== 2. CONTADOR COM PLAY/PAUSE/RESET =====
+let seconds = 0;
+let intervalId = null;
+let isRunning = false;
 
-    pontosRestantesEl.textContent = pontos;
+const display = document.getElementById('display');
+const startPauseBtn = document.getElementById('startPauseBtn');
+const resetBtn = document.getElementById('resetBtn');
 
-    if (pontos === 0) {
-        pontosRestantesEl.style.color = "#e74c3c";
+function updateDisplay() {
+    display.textContent = seconds;
+}
+
+function toggleStartPause() {
+    if (isRunning) {
+        clearInterval(intervalId);
+        isRunning = false;
+        startPauseBtn.textContent = 'Start';
     } else {
-        pontosRestantesEl.style.color = "#667eea";
+        intervalId = setInterval(() => {
+            seconds++;
+            updateDisplay();
+        }, 1000);
+        isRunning = true;
+        startPauseBtn.textContent = 'Pause';
     }
 }
 
-btnMaisAttr.forEach(botao => {
-    botao.addEventListener("click", () => {
-        const atributo = botao.dataset.atributo;
+function reset() {
+    clearInterval(intervalId);
+    isRunning = false;
+    seconds = 0;
+    updateDisplay();
+    startPauseBtn.textContent = 'Start';
+}
 
-        if (pontos > 0) {
-            atributos[atributo]++;
-            pontos--;
-            atualizarTela();
-        }
+startPauseBtn.addEventListener('click', toggleStartPause);
+resetBtn.addEventListener('click', reset);
+
+
+// ===== 3. SISTEMA DE CADASTRO =====
+const nomeAluno = document.getElementById('nomeAluno');
+const idadeAluno = document.getElementById('idadeAluno');
+const btnCadastrar = document.getElementById('btnCadastrar');
+const listaAlunos = document.getElementById('listaAlunos');
+
+let alunos = [];
+
+function renderizarAlunos() {
+    listaAlunos.innerHTML = '';
+    alunos.forEach((aluno, index) => {
+        const div = document.createElement('div');
+        div.className = 'cadastro-item';
+        
+        const info = document.createElement('span');
+        info.textContent = `${aluno.nome} - ${aluno.idade} anos`;
+        
+        const btnExcluir = document.createElement('button');
+        btnExcluir.textContent = 'Excluir';
+        btnExcluir.className = 'btn-remover';
+        btnExcluir.addEventListener('click', () => {
+            alunos = alunos.filter((_, i) => i !== index);
+            renderizarAlunos();
+        });
+
+        div.appendChild(info);
+        div.appendChild(btnExcluir);
+        listaAlunos.appendChild(div);
     });
-});
+}
 
-btnMenosAttr.forEach(botao => {
-    botao.addEventListener("click", () => {
-        const atributo = botao.dataset.atributo;
+btnCadastrar.addEventListener('click', () => {
+    const nome = nomeAluno.value.trim();
+    const idade = parseInt(idadeAluno.value);
 
-        if (atributos[atributo] > 0) {
-            atributos[atributo]--;
-            pontos++;
-            atualizarTela();
-        }
-    });
-});
-
-document.getElementById("confirmar").addEventListener("click", () => {
-    resultadoAtributos.textContent = "";
-
-    if (pontos > 0) {
-        resultadoAtributos.style.color = "red";
-        resultadoAtributos.style.background = "#ffe6e6";
-        resultadoAtributos.textContent = "⚠️ Você ainda tem pontos para distribuir!";
-    } else {
-        resultadoAtributos.style.color = "green";
-        resultadoAtributos.style.background = "#e6ffe6";
-        resultadoAtributos.innerHTML =
-            `✅ Distribuição completa!<br><br>
-            💪 Força: ${atributos.forca}<br>
-            🏃 Agilidade: ${atributos.agi}<br>
-            🧠 Inteligência: ${atributos.int}<br>
-            ✨ Carisma: ${atributos.carisma}<br>
-            🛡️ Defesa: ${atributos.defesa}`;
+    if (nome !== '' && idade > 0) {
+        alunos.push({ nome, idade });
+        renderizarAlunos();
+        nomeAluno.value = '';
+        idadeAluno.value = '';
     }
 });
 
-atualizarTela();
+nomeAluno.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        btnCadastrar.click();
+    }
+});
+
+idadeAluno.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        btnCadastrar.click();
+    }
+});
+
+
+// ===== 4. GALERIA COM TROCA AUTOMÁTICA =====
+const imagemPrincipal = document.getElementById('imagemPrincipal');
+const thumbnails = document.querySelectorAll('.thumbnail');
+const btnPauseGaleria = document.getElementById('btnPauseGaleria');
+
+let galeriaInterval = null;
+let galeriaAtiva = true;
+let indiceAtual = 0;
+
+function trocarImagem(index) {
+    indiceAtual = index;
+    imagemPrincipal.src = thumbnails[index].src;
+    
+    thumbnails.forEach(thumb => thumb.classList.remove('ativa'));
+    thumbnails[index].classList.add('ativa');
+}
+
+function proximaImagem() {
+    indiceAtual = (indiceAtual + 1) % thumbnails.length;
+    trocarImagem(indiceAtual);
+}
+
+thumbnails.forEach((thumb, index) => {
+    thumb.addEventListener('click', () => {
+        trocarImagem(index);
+    });
+});
+
+btnPauseGaleria.addEventListener('click', () => {
+    if (galeriaAtiva) {
+        clearInterval(galeriaInterval);
+        btnPauseGaleria.textContent = 'Retomar Auto-Troca';
+        galeriaAtiva = false;
+    } else {
+        galeriaInterval = setInterval(proximaImagem, 3000);
+        btnPauseGaleria.textContent = 'Pausar Auto-Troca';
+        galeriaAtiva = true;
+    }
+});
+
+// Iniciar troca automática
+galeriaInterval = setInterval(proximaImagem, 3000);
+
+
+// ===== 5. QUIZ COM PONTUAÇÃO =====
+const perguntas = [
+    {
+        pergunta: "Qual método é usado para adicionar um elemento ao final de um array?",
+        opcoes: ["push()", "pop()", "shift()", "unshift()"],
+        correta: 0
+    },
+    {
+        pergunta: "O que significa DOM?",
+        opcoes: ["Data Object Model", "Document Object Model", "Digital Online Method", "Direct Object Manipulation"],
+        correta: 1
+    },
+    {
+        pergunta: "Qual é o operador de igualdade estrita em JavaScript?",
+        opcoes: ["==", "!=", "===", "!=="],
+        correta: 2
+    },
+    {
+        pergunta: "Qual método é usado para remover o último elemento de um array?",
+        opcoes: ["shift()", "pop()", "slice()", "splice()"],
+        correta: 1
+    },
+    {
+        pergunta: "Como declaramos uma constante em JavaScript?",
+        opcoes: ["var", "let", "const", "define"],
+        correta: 2
+    }
+];
+
+const quizContainer = document.getElementById('quizContainer');
+const btnFinalizarQuiz = document.getElementById('btnFinalizarQuiz');
+const resultadoQuiz = document.getElementById('resultadoQuiz');
+
+function renderizarQuiz() {
+    quizContainer.innerHTML = '';
+    perguntas.forEach((pergunta, index) => {
+        const divPergunta = document.createElement('div');
+        divPergunta.className = 'quiz-pergunta';
+        
+        const titulo = document.createElement('h3');
+        titulo.textContent = `${index + 1}. ${pergunta.pergunta}`;
+        divPergunta.appendChild(titulo);
+
+        pergunta.opcoes.forEach((opcao, opcaoIndex) => {
+            const label = document.createElement('label');
+            label.className = 'quiz-opcao';
+            
+            const radio = document.createElement('input');
+            radio.type = 'radio';
+            radio.name = `pergunta${index}`;
+            radio.value = opcaoIndex;
+            
+            label.appendChild(radio);
+            label.appendChild(document.createTextNode(opcao));
+            divPergunta.appendChild(label);
+        });
+
+        quizContainer.appendChild(divPergunta);
+    });
+}
+
+btnFinalizarQuiz.addEventListener('click', () => {
+    let pontuacao = 0;
+    
+    perguntas.forEach((pergunta, index) => {
+        const selecionada = document.querySelector(`input[name="pergunta${index}"]:checked`);
+        if (selecionada && parseInt(selecionada.value) === pergunta.correta) {
+            pontuacao++;
+        }
+    });
+
+    resultadoQuiz.innerHTML = '';
+    
+    if (pontuacao === 5) {
+        resultadoQuiz.style.background = '#d4edda';
+        resultadoQuiz.style.color = '#155724';
+        resultadoQuiz.innerHTML = `🏆 <strong>EXCELENTE!</strong> Você acertou todas as ${perguntas.length} perguntas!`;
+    } else if (pontuacao >= 3) {
+        resultadoQuiz.style.background = '#fff3cd';
+        resultadoQuiz.style.color = '#856404';
+        resultadoQuiz.innerHTML = `👍 <strong>BOM!</strong> Você acertou ${pontuacao} de ${perguntas.length} perguntas!`;
+    } else {
+        resultadoQuiz.style.background = '#f8d7da';
+        resultadoQuiz.style.color = '#721c24';
+        resultadoQuiz.innerHTML = `📚 <strong>ESTUDE MAIS!</strong> Você acertou apenas ${pontuacao} de ${perguntas.length} perguntas.`;
+    }
+});
+
+// Renderizar quiz ao carregar
+renderizarQuiz();

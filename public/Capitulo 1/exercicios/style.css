@@ -90,75 +90,21 @@ button.btn-remover:hover {
     box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
 }
 
-#container {
-    background: #f8f9fa;
-    padding: 20px;
-    border-radius: 12px;
+.secao {
+    background: white;
+    padding: 25px;
     margin: 20px 0;
-    border-left: 5px solid #667eea;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-body.dark-mode #container {
+body.dark-mode .secao {
     background: #2d2d2d;
 }
 
-.descricao {
-    padding: 15px;
-    margin: 10px 0;
-    border-radius: 8px;
-    background: white;
-    transition: all 0.3s ease;
-}
-
-body.dark-mode .descricao {
-    background: #3a3a3a;
-}
-
-.highlight {
-    background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
-    padding: 15px;
-    font-weight: 600;
-    transform: scale(1.02);
-    box-shadow: 0 4px 12px rgba(253, 203, 110, 0.4);
-}
-
-.box {
-    width: 200px;
-    height: 200px;
-    background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%);
-    border-radius: 15px;
-    margin: 20px auto;
-    transition: all 0.5s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5em;
-    color: white;
-    font-weight: bold;
-}
-
-.hidden {
-    opacity: 0;
-    visibility: hidden;
-    transform: scale(0.8);
-}
-
-.visible {
-    opacity: 1;
-    visibility: visible;
-    transform: scale(1);
-}
-
-#valor {
-    font-size: 3em;
-    font-weight: bold;
-    color: #667eea;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-}
-
 input[type="text"],
-input[type="email"],
-textarea {
+input[type="number"],
+input[type="email"] {
     width: 100%;
     padding: 12px;
     margin: 10px 0;
@@ -168,15 +114,13 @@ textarea {
     transition: all 0.3s ease;
 }
 
-input:focus,
-textarea:focus {
+input:focus {
     outline: none;
     border-color: #667eea;
     box-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
 }
 
-body.dark-mode input,
-body.dark-mode textarea {
+body.dark-mode input {
     background: #3a3a3a;
     border-color: #555;
     color: #e0e0e0;
@@ -208,76 +152,73 @@ body.dark-mode li {
     background: #3a3a3a;
 }
 
-.atributo {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.tarefa-completa {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
+#display {
+    font-size: 48px;
+    font-weight: bold;
     background: white;
-    padding: 20px;
-    margin: 15px 0;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px 40px;
+    border-radius: 10px;
+    text-align: center;
+    margin: 20px auto;
+    color: #667eea;
 }
 
-body.dark-mode .atributo {
-    background: #2d2d2d;
+body.dark-mode #display {
+    background: #3a3a3a;
 }
 
-.atributo h3 {
-    margin: 0;
-    border: none;
-    padding: 0;
-    flex: 1;
-}
-
-.atributo-controles {
+.buttons {
     display: flex;
-    align-items: center;
+    justify-content: center;
     gap: 15px;
+    flex-wrap: wrap;
 }
 
-.atributo span {
-    font-size: 2em;
-    font-weight: bold;
-    color: #667eea;
-    min-width: 50px;
+.galeria-container {
     text-align: center;
 }
 
-#pontosRestantes {
-    font-size: 2.5em;
-    font-weight: bold;
-    color: #667eea;
-}
-
-#resultado,
-#resultadoForm,
-#resultadoAtributos,
-#resultadoQuiz {
-    padding: 15px;
-    margin: 15px 0;
-    border-radius: 8px;
-    font-weight: 600;
-    text-align: center;
-}
-
-.secao {
-    background: white;
-    padding: 25px;
-    margin: 20px 0;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-body.dark-mode .secao {
-    background: #2d2d2d;
-}
-
-.item-lista-completo {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.galeria-principal {
     width: 100%;
+    max-width: 600px;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin: 20px auto;
+    display: block;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.thumbnails {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.thumbnail {
+    width: 100px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 3px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.thumbnail:hover {
+    border-color: #667eea;
+    transform: scale(1.05);
+}
+
+.thumbnail.ativa {
+    border-color: #764ba2;
+    box-shadow: 0 4px 12px rgba(118, 75, 162, 0.4);
 }
 
 .quiz-pergunta {
@@ -298,11 +239,11 @@ body.dark-mode .quiz-pergunta {
     margin: 8px 0;
     cursor: pointer;
     transition: all 0.3s ease;
+    border-radius: 8px;
 }
 
 .quiz-opcao:hover {
     background: rgba(102, 126, 234, 0.1);
-    border-radius: 8px;
 }
 
 .quiz-opcao input {
@@ -310,12 +251,36 @@ body.dark-mode .quiz-pergunta {
     cursor: pointer;
 }
 
-#buscaInput {
-    font-size: 18px;
-    padding: 15px;
-    margin-bottom: 20px;
+.resultado {
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 12px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.2em;
 }
 
-.item-busca {
-    transition: all 0.3s ease;
+.form-cadastro {
+    display: grid;
+    gap: 10px;
+}
+
+.cadastro-item {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+body.dark-mode .cadastro-item {
+    background: #3a3a3a;
+}
+
+.checkbox-tarefa {
+    margin-right: 10px;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
 }
